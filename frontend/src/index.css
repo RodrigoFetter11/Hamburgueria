@@ -2,6 +2,8 @@
 
 body {
   background-color: #f8f9fa;
+  min-height: 100vh;         
+  padding-bottom: 64px;      
   margin: 0;
   font-family: system-ui, -apple-system, sans-serif;
 }
