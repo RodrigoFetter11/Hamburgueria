@@ -1,20 +1,25 @@
+import { useState } from "react";
 import { products } from "../../data/products";
+import type { Product } from "../../data/products";
 import { CardProduct } from "../CardProduct/CardProduct";
+import { ModalProduct } from "../ModalProduct/ModalProduct";
 
 export const ProductList = () => {
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   return (
     <main className="mx-auto max-w-[800px] w-full px-4 mt-8">
       <div className="bg-white p-4 rounded-2xl shadow-sm flex flex-col">
         <h2 className="text-xl font-bold text-gray-800 mb-2 text-left border-b border-gray-100 pb-3">
           Cardápio de Hambúrgueres
         </h2>
+        
         {products.map((produto) => (
           <CardProduct
             key={produto.id}
             name={produto.name}
             description={produto.description}
             image={produto.image}
-            onAdd={() => alert(`Abrindo o lanche ${produto.name}`)}
+            onAdd={() => setSelectedProduct(produto)}
           >
             <div className="flex flex-col gap-1">
               {produto.tag && (
@@ -45,6 +50,11 @@ export const ProductList = () => {
           </CardProduct>
         ))}
       </div>
+      <ModalProduct
+        isOpen={!!selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+        product={selectedProduct}
+      />
     </main>
   );
 };
