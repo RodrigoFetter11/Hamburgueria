@@ -1,14 +1,15 @@
 import { Header } from './components/Header/Header';
 import { CategoryCarrosel } from './components/CategoryCarrossel/CategoryCarrossel';
 import { ProductList } from './components/ProductList/ProductList';
+import { CartProvider } from './context/CartContext';
 
 function App() {
   return (
-    <div>
-      <Header />
-      <CategoryCarrosel />
-      <ProductList />
-    </div>
+    <CartProvider>
+        <Header />
+        <CategoryCarrosel />
+        <ProductList />
+    </CartProvider>
   )
 }
 
