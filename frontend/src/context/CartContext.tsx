@@ -10,11 +10,13 @@ interface CartItem {
 interface CartContextData {
   itens: CartItem[];
   adicionarAoCarrinho: (product: Product, quantidade: number) => void;
+  removerDoCarrinho: (product: Product) => void;
 }
 
 export const CartContext = createContext<CartContextData>({
   itens: [],
   adicionarAoCarrinho: () => {},
+  removerDoCarrinho: () => {},
 });
 
 interface CartProviderProps {
@@ -53,8 +55,14 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     });
   };
 
+  const removerDoCarrinho = (product: Product) => {
+    setItens((itensAtuais) => {
+      return itensAtuais.filter((item) => item.product.id !== product.id);
+    });
+  };
+
   return (
-    <CartContext.Provider value={{ itens, adicionarAoCarrinho }}>
+    <CartContext.Provider value={{ itens, adicionarAoCarrinho, removerDoCarrinho }}>
       {children}
     </CartContext.Provider>
   );
